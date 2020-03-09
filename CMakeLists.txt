@@ -12,6 +12,12 @@ OPTION(BUILD_STATIC OFF)
 OPTION(BUILD_EXECUTABLES ON)
 OPTION(BUILD_TESTS ON)
 
+if (EMSCRIPTEN)
+  SET(BUILD_STATIC ON)
+  SET(BUILD_EXECUTABLES OFF)
+  SET(BUILD_TESTS OFF)
+endif()
+
 include ( CheckIncludeFile )
 check_include_file ( stddef.h HAVE_STDDEF_H )
 check_include_file ( stdlib.h HAVE_STDLIB_H )
@@ -25,7 +31,7 @@ configure_file ( jconfig.h.cmake jconfig.h )
 include_directories ( ${CMAKE_CURRENT_BINARY_DIR} )
 # jconfig.h
 
-set ( HEADERS jerror.h jmorecfg.h jpeglib.h ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h )
+set ( HEADERS jerror.h jmorecfg.h jpeglib.h jinclude.h transupp.h ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h )
 
 set ( SRC jmemnobs.c jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolor.c 
   jcdctmgr.c jchuff.c jcinit.c jcmainct.c jcmarker.c jcmaster.c jcomapi.c jcparam.c 
@@ -33,7 +39,7 @@ set ( SRC jmemnobs.c jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolo
   jdcoefct.c jdcolor.c jddctmgr.c jdhuff.c jdinput.c jdmainct.c jdmarker.c jdmaster.c 
   jdmerge.c jdpostct.c jdsample.c jdtrans.c jerror.c jfdctflt.c jfdctfst.c jfdctint.c 
   jidctflt.c jidctfst.c jidctint.c jquant1.c jquant2.c jutils.c jmemmgr.c cderror.h 
-  cdjpeg.h jdct.h jinclude.h jmemsys.h jpegint.h jversion.h transupp.h )
+  cdjpeg.h jdct.h jmemsys.h jpegint.h jversion.h  )
 
 if ( BUILD_STATIC )
   add_library ( jpeg STATIC ${SRC} ${HEADERS} )
