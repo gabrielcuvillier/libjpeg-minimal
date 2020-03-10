@@ -304,7 +304,9 @@ typedef void noreturn_t;
  */
 
 #ifndef HAVE_BOOLEAN
-  #if 1
+// GAB: always define boolean as an int, otherwise this lead to mismatches with client libraries
+#if 1
+//#if defined FALSE || defined TRUE || defined QGLOBAL_H
 /* Qt3 defines FALSE and TRUE as "const" variables in qglobal.h */
     typedef int boolean;
     #ifndef FALSE			/* in case these macros already exist */
