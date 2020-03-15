@@ -19,6 +19,8 @@ OPTION(BUILD_STATIC ${BUILD_STATIC_default})
 OPTION(BUILD_EXECUTABLES ON)
 OPTION(BUILD_TESTS ON)
 
+set(CMAKE_DEBUG_POSTFIX "d")
+
 include ( CheckIncludeFile )
 check_include_file ( stddef.h HAVE_STDDEF_H )
 check_include_file ( stdlib.h HAVE_STDLIB_H )
